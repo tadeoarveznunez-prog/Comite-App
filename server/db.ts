@@ -35,440 +35,34 @@ function hashPassword(password: string): string {
   return crypto.createHash('sha256').update(password).digest('hex');
 }
 
-// Initial realistic fictitious seed data
+// Initial clean administrator configuration
 const defaultUsers: (User & { passwordHash: string })[] = [
   {
     id: 'user-admin-1',
-    name: 'Prof. Roberto',
-    lastName: 'Vásquez',
+    name: 'Administrador',
+    lastName: 'General',
     email: 'admin@votoescolar.edu',
     role: 'admin',
     status: 'activo',
-    createdAt: '2026-03-01T08:00:00Z',
+    createdAt: new Date().toISOString(),
     passwordHash: hashPassword('Admin123!'),
   },
-  {
-    id: 'user-stud-1',
-    name: 'Carlos',
-    lastName: 'Mendoza Ruiz',
-    email: 'estudiante1@colegio.edu',
-    role: 'student',
-    course: '4° Medio A',
-    studentIdNumber: 'EST-2026-014',
-    status: 'activo',
-    createdAt: '2026-03-02T09:15:00Z',
-    passwordHash: hashPassword('Estudiante123!'),
-  },
-  {
-    id: 'user-stud-2',
-    name: 'Valeria',
-    lastName: 'Morales Silva',
-    email: 'estudiante2@colegio.edu',
-    role: 'student',
-    course: '3° Medio B',
-    studentIdNumber: 'EST-2026-089',
-    status: 'activo',
-    createdAt: '2026-03-02T10:00:00Z',
-    passwordHash: hashPassword('Estudiante123!'),
-  },
-  {
-    id: 'user-stud-3',
-    name: 'Diego',
-    lastName: 'Fernández Castro',
-    email: 'estudiante3@colegio.edu',
-    role: 'student',
-    course: '4° Medio B',
-    studentIdNumber: 'EST-2026-102',
-    status: 'activo',
-    createdAt: '2026-03-03T11:20:00Z',
-    passwordHash: hashPassword('Estudiante123!'),
-  },
-  {
-    id: 'user-stud-4',
-    name: 'Sofía',
-    lastName: 'Araya Campos',
-    email: 'estudiante4@colegio.edu',
-    role: 'student',
-    course: '2° Medio A',
-    studentIdNumber: 'EST-2026-045',
-    status: 'activo',
-    createdAt: '2026-03-03T11:30:00Z',
-    passwordHash: hashPassword('Estudiante123!'),
-  },
-  {
-    id: 'user-stud-5',
-    name: 'Matías',
-    lastName: 'Pizarro Bravo',
-    email: 'estudiante5@colegio.edu',
-    role: 'student',
-    course: '3° Medio A',
-    studentIdNumber: 'EST-2026-077',
-    status: 'activo',
-    createdAt: '2026-03-04T12:00:00Z',
-    passwordHash: hashPassword('Estudiante123!'),
-  },
 ];
 
-const defaultElections: Election[] = [
-  {
-    id: 'elec-ccee-2026',
-    title: 'Elección Centro de Estudiantes 2026',
-    description: 'Elección democrática para elegir la nueva directiva del Centro de Alumnos que representará a toda la comunidad estudiantil.',
-    type: 'comite',
-    targetCourse: 'Colegio Completo',
-    startDate: '2026-09-01T08:00:00Z',
-    endDate: '2026-09-30T18:00:00Z',
-    status: 'activa',
-    showResultsToStudents: true,
-    createdAt: '2026-08-25T10:00:00Z',
-  },
-  {
-    id: 'elec-comite-4a',
-    title: 'Elección Directiva de Curso 4° Medio A',
-    description: 'Votación para elegir a los delegados y representantes del curso para el comité de graduación y actividades anuales.',
-    type: 'comite',
-    targetCourse: '4° Medio A',
-    availablePositions: ['Delegado General', 'Tesorero', 'Secretario'],
-    startDate: '2026-09-10T08:00:00Z',
-    endDate: '2026-09-25T20:00:00Z',
-    status: 'activa',
-    showResultsToStudents: false,
-    createdAt: '2026-09-05T09:30:00Z',
-  },
-  {
-    id: 'elec-actividad-2026',
-    title: 'Elección de Actividad de Fin de Año',
-    description: 'Votación estudiantil para decidir democráticamente la actividad recreativa o viaje de fin de ciclo escolar.',
-    type: 'actividad',
-    targetCourse: 'Colegio Completo',
-    startDate: '2026-09-01T08:00:00Z',
-    endDate: '2026-09-30T20:00:00Z',
-    status: 'activa',
-    showResultsToStudents: true,
-    createdAt: '2026-08-28T10:00:00Z',
-  },
-  {
-    id: 'elec-mascota-2026',
-    title: 'Votación Mascota Institucional del Colegio',
-    description: 'Elección de la figura representativa para las jornadas deportivas y aniversarios escolares.',
-    type: 'comite',
-    targetCourse: 'Colegio Completo',
-    startDate: '2026-08-01T08:00:00Z',
-    endDate: '2026-08-15T18:00:00Z',
-    status: 'finalizada',
-    showResultsToStudents: true,
-    createdAt: '2026-07-28T14:00:00Z',
-  },
-];
-
-const defaultCandidates: Candidate[] = [
-  // Candidates for Centro de Estudiantes
-  {
-    id: 'cand-1',
-    electionId: 'elec-ccee-2026',
-    name: 'Camila',
-    lastName: 'Navarro Soto',
-    course: '4° Medio A',
-    position: 'Presidenta CCEE - Lista "Fuerza y Unión"',
-    photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80',
-    proposal: 'Creación de salas de estudio silenciosas, torneos deportivos intercursos los viernes por la tarde, y convenios de fotocopias a bajo costo.',
-    active: true,
-    colorTag: '#3b82f6',
-    createdAt: '2026-08-26T10:00:00Z',
-  },
-  {
-    id: 'cand-2',
-    electionId: 'elec-ccee-2026',
-    name: 'Benjamín',
-    lastName: 'Guzmán Lara',
-    course: '4° Medio B',
-    position: 'Presidente CCEE - Lista "Voz Juvenil"',
-    photoUrl: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&auto=format&fit=crop&q=80',
-    proposal: 'Modernización del patio techado con puntos de carga solar, festivales de música y debate mensual con la dirección del colegio.',
-    active: true,
-    colorTag: '#10b981',
-    createdAt: '2026-08-26T10:30:00Z',
-  },
-  {
-    id: 'cand-3',
-    electionId: 'elec-ccee-2026',
-    name: 'Ignacia',
-    lastName: 'Salazar Peña',
-    course: '3° Medio A',
-    position: 'Presidenta CCEE - Lista "Eco-Estudiantil"',
-    photoUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&auto=format&fit=crop&q=80',
-    proposal: 'Puntos verdes de reciclaje en cada pabellón, huerto escolar comunitario y menú vegetariano opcional en el casino institucional.',
-    active: true,
-    colorTag: '#f59e0b',
-    createdAt: '2026-08-26T11:00:00Z',
-  },
-
-  // Candidates for 4 Medio A
-  {
-    id: 'cand-4',
-    electionId: 'elec-comite-4a',
-    name: 'Lucas',
-    lastName: 'Vidal Riquelme',
-    course: '4° Medio A',
-    position: 'Delegado General de Curso',
-    photoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80',
-    proposal: 'Transparencia contable en tiempo real de todos los fondos del curso y gestión de polerones de graduación con diseño exclusivo.',
-    active: true,
-    colorTag: '#8b5cf6',
-    createdAt: '2026-09-06T12:00:00Z',
-  },
-  {
-    id: 'cand-5',
-    electionId: 'elec-comite-4a',
-    name: 'Catalina',
-    lastName: 'Fuentealba Cid',
-    course: '4° Medio A',
-    position: 'Delegada General de Curso',
-    photoUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&auto=format&fit=crop&q=80',
-    proposal: 'Plan intensivo de rifas y venta de alimentos para financiar el 80% del viaje de fin de año de todos los compañeros.',
-    active: true,
-    colorTag: '#ec4899',
-    createdAt: '2026-09-06T12:30:00Z',
-  },
-
-  // Candidates for Mascota
-  {
-    id: 'cand-6',
-    electionId: 'elec-mascota-2026',
-    name: 'Cóndor Andino',
-    lastName: '"Altiplano"',
-    course: 'Simbolismo Institucional',
-    position: 'Mascota Oficial',
-    photoUrl: 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=400&auto=format&fit=crop&q=80',
-    proposal: 'Representa la altura de miras, fuerza y perseverancia en las cumbres académicas y deportivas.',
-    active: true,
-    colorTag: '#3b82f6',
-    createdAt: '2026-07-29T10:00:00Z',
-  },
-  {
-    id: 'cand-7',
-    electionId: 'elec-mascota-2026',
-    name: 'Puma Chileno',
-    lastName: '"Garra"',
-    course: 'Simbolismo Institucional',
-    position: 'Mascota Oficial',
-    photoUrl: 'https://images.unsplash.com/photo-1561731216-c3a4d99437d5?w=400&auto=format&fit=crop&q=80',
-    proposal: 'Representa la agilidad, disciplina y trabajo en equipo para todas las ligas atléticas del colegio.',
-    active: true,
-    colorTag: '#ef4444',
-    createdAt: '2026-07-29T10:30:00Z',
-  },
-];
-
-const defaultActivityOptions: ActivityOption[] = [
-  {
-    id: 'opt-act-1',
-    electionId: 'elec-actividad-2026',
-    title: 'Viaje y Campamento a la Playa',
-    description: '3 días en complejo de cabañas en el litoral, con fogata de integración, dinámicas grupales y cena de bienvenida.',
-    proposedDate: '2026-11-20',
-    location: 'Litoral Central - Cabañas del Mar',
-    estimatedCost: 45000,
-    imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&auto=format&fit=crop&q=80',
-    additionalInfo: 'Incluye traslado en bus privado, hospedaje y alimentación completa.',
-    active: true,
-    createdAt: '2026-08-28T10:00:00Z',
-  },
-  {
-    id: 'opt-act-2',
-    electionId: 'elec-actividad-2026',
-    title: 'Gala & Fiesta de Graduación de Ensueño',
-    description: 'Cena formal en salón de eventos con servicio gastronómico, DJ profesional, pista iluminada y cabina fotográfica 360°.',
-    proposedDate: '2026-12-12',
-    location: 'Salón de Eventos Bellavista',
-    estimatedCost: 38000,
-    imageUrl: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=500&auto=format&fit=crop&q=80',
-    additionalInfo: 'Incluye cotillón temático, cena de 3 tiempos y recuerdos de graduación.',
-    active: true,
-    createdAt: '2026-08-28T10:30:00Z',
-  },
-  {
-    id: 'opt-act-3',
-    electionId: 'elec-actividad-2026',
-    title: 'Jornada Deportiva & Parque de Aventura',
-    description: 'Día completo de arborismo, canopy, muro de escalada deportiva, almuerzo campestre al aire libre y torneos intercursos.',
-    proposedDate: '2026-11-06',
-    location: 'Parque Aventura Cordillera',
-    estimatedCost: 26000,
-    imageUrl: 'https://images.unsplash.com/photo-1517649763962-0c623266ddc0?w=500&auto=format&fit=crop&q=80',
-    additionalInfo: 'Incluye equipo de seguridad certificado, monitores e hidratación.',
-    active: true,
-    createdAt: '2026-08-28T11:00:00Z',
-  },
-  {
-    id: 'opt-act-4',
-    electionId: 'elec-actividad-2026',
-    title: 'Feria Cultural & Festival de Bandas',
-    description: 'Festival en el recinto institucional con stands gastronómicos, bandas escolares invitadas, expo de arte y torneo gamer.',
-    proposedDate: '2026-10-24',
-    location: 'Cancha Central & Gimnasio del Colegio',
-    estimatedCost: 14000,
-    imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&auto=format&fit=crop&q=80',
-    additionalInfo: 'Acceso para toda la comunidad y familias. Fondos recaudados van al fondo común.',
-    active: true,
-    createdAt: '2026-08-28T11:30:00Z',
-  },
-];
-
-const defaultActivities: Activity[] = [
-  {
-    id: 'act-1',
-    name: 'Gran Kermés de Primavera 2026',
-    description: 'Feria gastronómica y juegos recreativos con stands atendidos por los estudiantes para recaudar fondos de graduación.',
-    date: '2026-09-05',
-    responsible: 'Prof. Roberto Vásquez & Directiva 4to',
-    category: 'Kermés',
-    income: 850000,
-    expenses: 320000,
-    profit: 530000,
-    createdAt: '2026-08-20T10:00:00Z',
-  },
-  {
-    id: 'act-2',
-    name: 'Rifa Solidaria Pro-Fondo Deportivo',
-    description: 'Sorteo de canastas familiares y artículos electrónicos donados por apoderados.',
-    date: '2026-08-18',
-    responsible: 'Comité de Deportes y Recreación',
-    category: 'Rifa',
-    income: 420000,
-    expenses: 75000,
-    profit: 345000,
-    createdAt: '2026-08-01T14:00:00Z',
-  },
-  {
-    id: 'act-3',
-    name: 'Venta de Empanadas y Bebidas Fiestas Patrias',
-    description: 'Venta de almuerzos típicos durante el recreo extendido de vísperas de festividades.',
-    date: '2026-09-12',
-    responsible: 'Delegación de Tesorería Escolar',
-    category: 'Venta',
-    income: 260000,
-    expenses: 110000,
-    profit: 150000,
-    createdAt: '2026-09-02T09:00:00Z',
-  },
-  {
-    id: 'act-4',
-    name: 'Torneo de Baby Fútbol Relámpago',
-    description: 'Inscripción por equipos de alumnos y profesores con trofeos y medallas.',
-    date: '2026-08-28',
-    responsible: 'Lucas Vidal & Sofía Araya',
-    category: 'Deportes',
-    income: 180000,
-    expenses: 45000,
-    profit: 135000,
-    createdAt: '2026-08-15T16:00:00Z',
-  },
-];
-
-// Seed some existing anonymous ballots for completed election (mascota) and CCEE
-const defaultVoterParticipation: VoterParticipationRecord[] = [
-  {
-    id: 'vp-1',
-    electionId: 'elec-mascota-2026',
-    studentId: 'user-stud-1',
-    studentName: 'Carlos Mendoza Ruiz',
-    studentCourse: '4° Medio A',
-    votedAt: '2026-08-05T10:14:22Z',
-    receiptHash: 'REC-MASCOTA-7F921B',
-  },
-  {
-    id: 'vp-2',
-    electionId: 'elec-mascota-2026',
-    studentId: 'user-stud-2',
-    studentName: 'Valeria Morales Silva',
-    studentCourse: '3° Medio B',
-    votedAt: '2026-08-05T11:45:10Z',
-    receiptHash: 'REC-MASCOTA-83A49C',
-  },
-  {
-    id: 'vp-3',
-    electionId: 'elec-mascota-2026',
-    studentId: 'user-stud-3',
-    studentName: 'Diego Fernández Castro',
-    studentCourse: '4° Medio B',
-    votedAt: '2026-08-06T09:30:15Z',
-    receiptHash: 'REC-MASCOTA-19D82F',
-  },
-  {
-    id: 'vp-4',
-    electionId: 'elec-ccee-2026',
-    studentId: 'user-stud-2',
-    studentName: 'Valeria Morales Silva',
-    studentCourse: '3° Medio B',
-    votedAt: '2026-09-02T14:10:00Z',
-    receiptHash: 'REC-CCEE-44A992',
-  },
-];
-
-const defaultAnonymousBallots: AnonymousBallot[] = [
-  {
-    id: 'bal-1',
-    electionId: 'elec-mascota-2026',
-    candidateId: 'cand-7', // Puma Garra
-    timestamp: '2026-08-05T10:14:22Z',
-    receiptHash: 'REC-MASCOTA-7F921B',
-  },
-  {
-    id: 'bal-2',
-    electionId: 'elec-mascota-2026',
-    candidateId: 'cand-6', // Condor
-    timestamp: '2026-08-05T11:45:10Z',
-    receiptHash: 'REC-MASCOTA-83A49C',
-  },
-  {
-    id: 'bal-3',
-    electionId: 'elec-mascota-2026',
-    candidateId: 'cand-7', // Puma Garra
-    timestamp: '2026-08-06T09:30:15Z',
-    receiptHash: 'REC-MASCOTA-19D82F',
-  },
-  {
-    id: 'bal-4',
-    electionId: 'elec-ccee-2026',
-    candidateId: 'cand-1', // Camila Navarro
-    timestamp: '2026-09-02T14:10:00Z',
-    receiptHash: 'REC-CCEE-44A992',
-  },
-];
-
+const defaultElections: Election[] = [];
+const defaultCandidates: Candidate[] = [];
+const defaultActivityOptions: ActivityOption[] = [];
+const defaultActivities: Activity[] = [];
+const defaultVoterParticipation: VoterParticipationRecord[] = [];
+const defaultAnonymousBallots: AnonymousBallot[] = [];
 const defaultAuditLogs: AuditLog[] = [
   {
     id: 'log-1',
     action: 'INICIALIZACIÓN_SISTEMA',
-    details: 'Base de datos de Voto Escolar configurada y asegurada.',
+    details: 'Comité App inicializado con base de datos limpia.',
     user: 'Sistema',
-    timestamp: '2026-08-25T10:00:00Z',
+    timestamp: new Date().toISOString(),
     type: 'system',
-  },
-  {
-    id: 'log-2',
-    action: 'APERTURA_ELECCIÓN',
-    details: 'Se abrió oficialmente la votación "Elección Centro de Estudiantes 2026".',
-    user: 'Prof. Roberto Vásquez (admin@votoescolar.edu)',
-    timestamp: '2026-09-01T08:00:00Z',
-    type: 'election',
-  },
-  {
-    id: 'log-3',
-    action: 'VOTO_EMITIDO',
-    details: 'Un estudiante emitió su voto bajo comprobante anónimo REC-CCEE-44A992.',
-    user: 'Estudiante (Anonimizado)',
-    timestamp: '2026-09-02T14:10:00Z',
-    type: 'vote',
-  },
-  {
-    id: 'log-4',
-    action: 'REGISTRO_ACTIVIDAD',
-    details: 'Se registraron ingresos y balance para "Gran Kermés de Primavera 2026".',
-    user: 'Prof. Roberto Vásquez',
-    timestamp: '2026-09-05T20:30:00Z',
-    type: 'activity',
   },
 ];
 
@@ -498,38 +92,37 @@ class Database {
         const raw = fs.readFileSync(DB_FILE, 'utf-8');
         const parsed = JSON.parse(raw);
 
-        // Migrate users with status if missing
-        const loadedUsers = (parsed.users || defaultUsers).map((u: any) => ({
+        // Ensure users list contains at least the admin user
+        let loadedUsers: (User & { passwordHash: string })[] = Array.isArray(parsed.users)
+          ? parsed.users
+          : [...defaultUsers];
+
+        if (!loadedUsers.some((u) => u.role === 'admin')) {
+          loadedUsers.unshift(...defaultUsers);
+        }
+
+        loadedUsers = loadedUsers.map((u: any) => ({
           ...u,
           status: u.status || 'activo',
         }));
 
-        // Migrate elections with type if missing
-        const loadedElections: Election[] = (parsed.elections || defaultElections).map((e: any) => ({
+        const loadedElections: Election[] = (Array.isArray(parsed.elections) ? parsed.elections : []).map((e: any) => ({
           ...e,
-          type: e.type || (e.id.includes('actividad') ? 'actividad' : 'comite'),
+          type: e.type || (e.id && e.id.includes('actividad') ? 'actividad' : 'comite'),
         }));
-
-        // Ensure default activity election exists if none present
-        if (!loadedElections.some((e) => e.type === 'actividad')) {
-          const sampleAct = defaultElections.find((e) => e.type === 'actividad');
-          if (sampleAct) loadedElections.push(sampleAct);
-        }
-
-        const loadedActivityOptions = parsed.activityOptions && parsed.activityOptions.length > 0
-          ? parsed.activityOptions
-          : [...defaultActivityOptions];
 
         this.data = {
           users: loadedUsers,
           elections: loadedElections,
-          candidates: parsed.candidates || defaultCandidates,
-          activityOptions: loadedActivityOptions,
-          voterParticipation: parsed.voterParticipation || defaultVoterParticipation,
-          anonymousBallots: parsed.anonymousBallots || defaultAnonymousBallots,
-          activities: parsed.activities || defaultActivities,
-          courseGoals: parsed.courseGoals,
-          auditLogs: parsed.auditLogs || defaultAuditLogs,
+          candidates: Array.isArray(parsed.candidates) ? parsed.candidates : [],
+          activityOptions: Array.isArray(parsed.activityOptions) ? parsed.activityOptions : [],
+          voterParticipation: Array.isArray(parsed.voterParticipation) ? parsed.voterParticipation : [],
+          anonymousBallots: Array.isArray(parsed.anonymousBallots) ? parsed.anonymousBallots : [],
+          activities: Array.isArray(parsed.activities) ? parsed.activities : [],
+          courseGoals: Array.isArray(parsed.courseGoals) ? parsed.courseGoals : [],
+          auditLogs: Array.isArray(parsed.auditLogs) && parsed.auditLogs.length > 0
+            ? parsed.auditLogs
+            : [...defaultAuditLogs],
         };
       } else {
         this.save();
@@ -553,17 +146,18 @@ class Database {
   public resetToDefaults() {
     this.data = {
       users: [...defaultUsers],
-      elections: [...defaultElections],
-      candidates: [...defaultCandidates],
-      activityOptions: [...defaultActivityOptions],
-      voterParticipation: [...defaultVoterParticipation],
-      anonymousBallots: [...defaultAnonymousBallots],
-      activities: [...defaultActivities],
+      elections: [],
+      candidates: [],
+      activityOptions: [],
+      voterParticipation: [],
+      anonymousBallots: [],
+      activities: [],
+      courseGoals: [],
       auditLogs: [
         {
           id: `log-${Date.now()}`,
-          action: 'REINICIO_DEMO',
-          details: 'Datos de prueba restablecidos con éxito.',
+          action: 'REINICIO_SISTEMA',
+          details: 'Base de datos restablecida a estado limpio.',
           user: 'Administrador',
           timestamp: new Date().toISOString(),
           type: 'system',
@@ -1232,49 +826,22 @@ class Database {
     const totalExpenses = activities.reduce((acc, a) => acc + (a.expenses || 0), 0);
     const netProfit = totalIncome - totalExpenses;
 
-    if (!this.data.courseGoals || this.data.courseGoals.length === 0) {
-      this.data.courseGoals = [
-        {
-          id: 'goal-1',
-          title: 'Polerones de Generación 4° Medio',
-          targetAmount: 850000,
-          currentAmount: Math.min(850000, Math.max(0, netProfit)),
-          percentageReached: Math.min(100, Math.round((Math.max(0, netProfit) / 850000) * 100)),
-          deadline: '2026-10-30T00:00:00.000Z',
-          description: 'Financiamiento del 100% del diseño y confección de los polerones de graduación del curso.',
-          createdAt: '2026-03-01T10:00:00.000Z',
-        },
-        {
-          id: 'goal-2',
-          title: 'Cena y Fiesta de Graduación',
-          targetAmount: 1500000,
-          currentAmount: Math.min(1500000, Math.max(0, Math.floor(netProfit * 0.7))),
-          percentageReached: Math.min(100, Math.round((Math.max(0, Math.floor(netProfit * 0.7)) / 1500000) * 100)),
-          deadline: '2026-12-15T00:00:00.000Z',
-          description: 'Reserva de local, banquetería, DJ e iluminación para la despedida formal del curso.',
-          createdAt: '2026-03-05T12:00:00.000Z',
-        },
-      ];
-      this.save();
-    } else {
-      // Dynamically update current amounts based on net profit
-      this.data.courseGoals = this.data.courseGoals.map((g, idx) => {
-        const factor = idx === 0 ? 1 : 0.6;
-        const currentAmount = Math.min(g.targetAmount, Math.max(0, Math.floor(netProfit * factor)));
-        return {
-          ...g,
-          currentAmount,
-          percentageReached: Math.min(100, Math.round((currentAmount / Math.max(1, g.targetAmount)) * 100)),
-        };
-      });
-    }
+    const goals = (this.data.courseGoals || []).map((g, idx) => {
+      const factor = idx === 0 ? 1 : 0.6;
+      const currentAmount = Math.min(g.targetAmount, Math.max(0, Math.floor(netProfit * factor)));
+      return {
+        ...g,
+        currentAmount,
+        percentageReached: Math.min(100, Math.round((currentAmount / Math.max(1, g.targetAmount)) * 100)),
+      };
+    });
 
     return {
       totalIncome,
       totalExpenses,
       netProfit,
       activitiesBreakdown: activities,
-      goals: this.data.courseGoals,
+      goals,
     };
   }
 

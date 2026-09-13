@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "id": "user-admin-1",
+      "name": "Administrador",
+      "lastName": "General",
+      "email": "admin@votoescolar.edu",
+      "role": "admin",
+      "status": "activo",
+      "createdAt": "2026-03-01T08:00:00.000Z",
+      "passwordHash": "3eb3fe66b31e3b4d10fa70b5cad49c7112294af6ae4e476a1c405155d45aa121"
+    }
+  ],
+  "elections": [],
+  "candidates": [],
+  "activityOptions": [],
+  "voterParticipation": [],
+  "anonymousBallots": [],
+  "activities": [],
+  "courseGoals": [],
+  "auditLogs": [
+    {
+      "id": "log-1",
+      "action": "INICIALIZACIÓN_SISTEMA",
+      "details": "Comité App inicializado con base de datos limpia.",
+      "user": "Sistema",
+      "timestamp": "2026-03-01T08:00:00.000Z",
+      "type": "system"
+    }
+  ]
+}

@@ -60,76 +60,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenHelp, onOpenAuth }) => {
 
         {/* Right Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Quick Demo Switcher Dropdown */}
-          <div className="relative">
+          {/* Admin Quick Access for evaluation */}
+          {!user && (
             <button
               type="button"
-              onClick={() => setShowDemoMenu(!showDemoMenu)}
+              onClick={() => handleDemoSwitch('admin@votoescolar.edu', 'Admin123!', 'Administrador')}
               disabled={isSwitching}
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/70 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60 transition-colors"
-              title="Cambiar rápidamente entre usuarios de prueba para evaluar la aplicación"
+              title="Iniciar sesión directamente como Administrador"
             >
-              <Sparkles className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
-              <span className="hidden md:inline">Cuentas Demo</span>
-              <span className="md:hidden">Demo</span>
-              <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+              <Shield className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
+              <span>Acceso Admin</span>
             </button>
-
-            {showDemoMenu && (
-              <div
-                className="absolute right-0 mt-2 w-72 bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-200 dark:border-slate-800 p-2 z-50 animate-in fade-in zoom-in-95 duration-100"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="px-3 py-2 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                  Acceso rápido de prueba
-                </div>
-                <button
-                  type="button"
-                  onClick={() => handleDemoSwitch('admin@votoescolar.edu', 'Admin123!', 'Administrador')}
-                  className="w-full text-left px-3 py-2 rounded-lg text-xs hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between group transition-colors"
-                >
-                  <div>
-                    <p className="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">
-                      <Shield className="w-3.5 h-3.5 text-violet-500" />
-                      Prof. Roberto (Admin)
-                    </p>
-                    <p className="text-[11px] text-slate-500">Gestión de elecciones, finanzas y control</p>
-                  </div>
-                  {user?.role === 'admin' && <UserCheck className="w-4 h-4 text-emerald-500" />}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleDemoSwitch('estudiante1@colegio.edu', 'Estudiante123!', 'Carlos Mendoza (4° Medio A)')}
-                  className="w-full text-left px-3 py-2 rounded-lg text-xs hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between group transition-colors"
-                >
-                  <div>
-                    <p className="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">
-                      <GraduationCap className="w-3.5 h-3.5 text-indigo-500" />
-                      Carlos Mendoza (Estudiante)
-                    </p>
-                    <p className="text-[11px] text-slate-500">4° Medio A - Listo para votar</p>
-                  </div>
-                  {user?.email === 'estudiante1@colegio.edu' && <UserCheck className="w-4 h-4 text-emerald-500" />}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleDemoSwitch('estudiante2@colegio.edu', 'Estudiante123!', 'Valeria Morales (3° Medio B)')}
-                  className="w-full text-left px-3 py-2 rounded-lg text-xs hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between group transition-colors"
-                >
-                  <div>
-                    <p className="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1">
-                      <GraduationCap className="w-3.5 h-3.5 text-blue-500" />
-                      Valeria Morales (Estudiante)
-                    </p>
-                    <p className="text-[11px] text-slate-500">3° Medio B - Ya votó en CCEE</p>
-                  </div>
-                  {user?.email === 'estudiante2@colegio.edu' && <UserCheck className="w-4 h-4 text-emerald-500" />}
-                </button>
-              </div>
-            )}
-          </div>
+          )}
 
           {/* Help Button */}
           <button
