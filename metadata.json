@@ -1,0 +1,6 @@
+{
+  "name": "Comité App",
+  "description": "Sistema de elecciones estudiantiles, comité de curso y votación de actividades escolares.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
